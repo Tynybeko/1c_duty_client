@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 
 
 const URL = 'https://backapp.gbaza.ru'
+
 const API = axios.create({
     baseURL: URL,
     timeout: 3500
