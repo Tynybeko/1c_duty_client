@@ -3,7 +3,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 
-const URL = 'http://localhost:3007'
+const URL = 'https://backapp.gbaza.ru'
 const API = axios.create({
     baseURL: URL,
     timeout: 3500
