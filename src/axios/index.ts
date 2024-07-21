@@ -26,7 +26,8 @@ API.interceptors.request.use((config) => {
 API.interceptors.response.use((fullfiled) => {
     return Promise.resolve(fullfiled)
 }, (error) => {
-    if (error.response && error.response.status === 401) {
+    const token = Cookies.get('authToken')
+    if (error.response && error.response.status === 401 && token) {
         Cookies.remove('authToken')
         window.location.replace('/login')
     }

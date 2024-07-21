@@ -11,7 +11,10 @@ interface ModalAlertProps {
 
 export default function AlertModal({ onClose, id, title }: ModalAlertProps) {
     const [loading, setLoading] = useState(false)
-    const [data, setData] = useState<any[] | null>(null)
+    const [data, setData] = useState<{
+        credit: any[],
+        sum: number
+    } | null>(null)
     const [error, setError] = useState('')
 
     useEffect(() => {
@@ -22,7 +25,7 @@ export default function AlertModal({ onClose, id, title }: ModalAlertProps) {
             }
         })
             .then(res => {
-                setData(res.data.data.credit)
+                setData(res.data.data)
                 setError('')
             })
             .catch(err => setError(err?.response?.message ?? 'Ошибка при получении!'))
@@ -31,7 +34,7 @@ export default function AlertModal({ onClose, id, title }: ModalAlertProps) {
 
 
     return (
-        <div onClick={onClose} id="readProductModal" aria-hidden="true" className="fixed overflow-y-auto overflow-x-hidden top-0 right-0 left-0 z-50  w-full h-screen md:inset-0">
+        <div onClick={onClose} id="readProductModal" aria-hidden="true" className="fixed flex justify-center overflow-y-auto overflow-x-hidden top-0 right-0 left-0 z-50  w-full h-screen md:inset-0">
 
             <div onClick={(e) => e.stopPropagation()} className="relative p-4 w-full max-w-xl  md:h-auto">
                 <div className="relative overflow-y-auto p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
@@ -54,16 +57,23 @@ export default function AlertModal({ onClose, id, title }: ModalAlertProps) {
                     <dl>
                         <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Остатки:</dt>
                         {
-                            data && !!data.length &&
-                            data.map(item => (
+                            data && !!data.credit.length &&
+                            data.credit.map(item => (
                                 <>
-                                    <dd className="font-medium text-black sm:mb-5 dark:text-gray-400">{item.org}</dd>
+                                    <dd className="font-medium text-black dark:text-gray-400">{item.org}</dd>
                                     <dd className="mb-3 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{item.ostatok}</dd>
                                 </>
                             ))
                         }
                         {
-                            data && !data.length ?
+                            data &&
+                            <>
+                                <dd className="font-medium text-black dark:text-gray-400">Общая сумма:</dd>
+                                <dd className="mb-3 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{data.sum}</dd>
+                            </>
+                        }
+                        {
+                            data && !data.credit.length ?
                                 <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"> Нету</dd>
                                 : null
 
