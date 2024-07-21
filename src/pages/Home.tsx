@@ -48,9 +48,9 @@ export default function Home() {
             {
                 changeUser && <AlertModal title={changeUser.name} id={changeUser.id ?? ''} onClose={() => setChangeUser(null)} />
             }
-            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+            <div className="mx-auto max-w-screen-xl md:px-4 lg:px-12">
                 <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                    <div className="flex flex-col-reverse md:flex-row items-center justify-between space-y-3 pt-0 md:space-y-0 md:space-x-4 p-4">
                         <div className="w-full md:w-1/2">
                             <form className="flex items-center">
                                 <label htmlFor="simple-search" className="sr-only">Search</label>
@@ -60,16 +60,15 @@ export default function Home() {
                                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <input onChange={(e) => setSearchInput(e.target.value)} type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required />
+                                    <input disabled={loading} onChange={(e) => setSearchInput(e.target.value)} type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required />
                                 </div>
                             </form>
-                           
                         </div>
-                        <button onClick={logout}  type="button" className="flex items-center justify-center gap-3 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                                Выйти
-                            </button>
+                        <button onClick={logout} type="button" className="flex !mb-2 items-center self-end justify-center gap-3 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                            Выйти
+                        </button>
                     </div>
-                    
+
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -84,9 +83,9 @@ export default function Home() {
                                 {
                                     data && !!filteredData.length && filteredData.map(item => (
                                         <tr className="border-b dark:border-gray-700">
-                                            <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{item.name}</th>
-                                            <td className="px-4 py-3 flex items-center justify-end">
-                                                <button onClick={() => setChangeUser(item)} type="button" className="flex items-center justify-center gap-3 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                            <th scope="row" className="px-4 py-3 font-medium max-w-[150px] text-[12px] md:text-[16px]  md:max-w-full  text-gray-900  dark:text-white">{item.name}</th>
+                                            <td scope='row' className="px-4 py-3 flex items-center justify-end">
+                                                <button onClick={() => setChangeUser(item)} type="button" className="flex leading-3 items-center justify-center  text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium text-[10px] rounded-lg md:text-sm px-2 py-2 md:px-4  dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                                                     Запросить долг
                                                 </button>
                                             </td>

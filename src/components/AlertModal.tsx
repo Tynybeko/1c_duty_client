@@ -21,20 +21,23 @@ export default function AlertModal({ onClose, id, title }: ModalAlertProps) {
                 id
             }
         })
-            .then(res => setData(res.data.data.credit))
+            .then(res => {
+                setData(res.data.data.credit)
+                setError('')
+            })
             .catch(err => setError(err?.response?.message ?? 'Ошибка при получении!'))
             .finally(() => setLoading(false))
     }, [])
 
 
     return (
-        <div onClick={onClose} id="readProductModal" aria-hidden="true" className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+        <div onClick={onClose} id="readProductModal" aria-hidden="true" className="fixed overflow-y-auto overflow-x-hidden top-0 right-0 left-0 z-50  w-full h-screen md:inset-0">
 
-            <div onClick={(e) => e.stopPropagation()} className="relative p-4 w-full max-w-xl h-full md:h-auto">
-                <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <div onClick={(e) => e.stopPropagation()} className="relative p-4 w-full max-w-xl  md:h-auto">
+                <div className="relative overflow-y-auto p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                     <div className="flex justify-between mb-4 rounded-t sm:mb-5">
                         <div className="text-lg text-gray-900 md:text-xl dark:text-white">
-                            <h3 className="font-semibold ">
+                            <h3 className="font-semibold underline ">
                                 {loading && <Loading />}
                                 {
                                     error || title
@@ -49,11 +52,14 @@ export default function AlertModal({ onClose, id, title }: ModalAlertProps) {
                         </div>
                     </div>
                     <dl>
-                        <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Остатки</dt>
+                        <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Остатки:</dt>
                         {
                             data && !!data.length &&
                             data.map(item => (
-                                <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{item.ostatok}</dd>
+                                <>
+                                    <dd className="font-medium text-black sm:mb-5 dark:text-gray-400">{item.org}</dd>
+                                    <dd className="mb-3 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{item.ostatok}</dd>
+                                </>
                             ))
                         }
                         {
